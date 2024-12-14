@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Whatsapp Link Countdown</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WhatsApp Link Countdown</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .countdown-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .countdown-box {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f0f8ff;
+            border-radius: 8px;
+        }
+        .countdown-title-inner {
+            margin-bottom: 10px;
+            color: #007bff;
+            text-align: center;
+        }
+        .countdown-units {
+            display: flex;
+            justify-content: space-around;
+        }
+        .countdown-unit {
+            text-align: center;
+        }
+        .countdown-unit-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .countdown-unit-label {
+            font-size: 12px;
+            color: #555;
+            text-transform: capitalize;
+        }
+        .status {
+            margin-bottom: 20px;
+        }
+        #openLinkBtn {
+            width: 100%;
+            padding: 10px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="countdown-title">WhatsApp Link Countdown</h2>
+        
+        <div class="countdown-box">
+            <h4 class="countdown-title-inner">Time Remaining</h4>
+            <div class="countdown-units">
+                <div class="countdown-unit">
+                    <div id="days" class="countdown-unit-value">0</div>
+                    <div class="countdown-unit-label">days</div>
+                </div>
+                <div class="countdown-unit">
+                    <div id="hours" class="countdown-unit-value">0</div>
+                    <div class="countdown-unit-label">hours</div>
+                </div>
+                <div class="countdown-unit">
+                    <div id="minutes" class="countdown-unit-value">0</div>
+                    <div class="countdown-unit-label">minutes</div>
+                </div>
+                <div class="countdown-unit">
+                    <div id="seconds" class="countdown-unit-value">0</div>
+                    <div class="countdown-unit-label">seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="status">
+            <strong>Current Status:</strong>
+            <p id="statusText">Link Not Yet Accessible</p>
+        </div>
+
+        <button id="openLinkBtn">Link Locked</button>
+    </div>
+
+    <script>
+        // Configuration
+        const WHATSAPP_LINK = "https://aassanhai.github.io/Di-Birthday/";
+        const TARGET_DATE = "2025-02-03";
+
+        // DOM Elements
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        const statusTextEl = document.getElementById('statusText');
+        const openLinkBtn = document.getElementById('openLinkBtn');
+
+        // Calculate Time Remaining
+        function calculateTimeRemaining() {
+            const now = new Date();
+            const target = new Date(TARGET_DATE);
+            const diff = target.getTime() - now.getTime();
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                return { days, hours, minutes, seconds };
+            }
+
+            return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+        }
+
+        // Update Countdown
+        function updateCountdown() {
+            const timeRemaining = calculateTimeRemaining();
+            
+            daysEl.textContent = timeRemaining.days;
+            hoursEl.textContent = timeRemaining.hours;
+            minutesEl.textContent = timeRemaining.minutes;
+            secondsEl.textContent = timeRemaining.seconds;
+
+            const currentDate = new Date();
+            const target = new Date(TARGET_DATE);
+            const isLinkAccessible = currentDate >= target;
+
+            statusTextEl.textContent = isLinkAccessible ? "Link Available" : "Link Not Yet Accessible";
+            statusTextEl.style.color = isLinkAccessible ? "green" : "red";
+            
+            openLinkBtn.textContent = isLinkAccessible ? "Open WhatsApp Link" : "Link Locked";
+            openLinkBtn.style.backgroundColor = isLinkAccessible ? "green" : "gray";
+        }
+
+        // Handle Link Opening
+        function handleOpenLink() {
+            const currentDate = new Date();
+            const target = new Date(TARGET_DATE);
+
+            if (currentDate < target) {
+                alert("Have patience, Good things always come with time.");
+                return;
+            }
+
+            window.open(WHATSAPP_LINK, "_blank");
+        }
+
+        // Event Listener
+        openLinkBtn.addEventListener('click', handleOpenLink);
+
+        // Initial Update and Timer
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
